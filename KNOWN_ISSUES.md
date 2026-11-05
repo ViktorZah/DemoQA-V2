@@ -266,3 +266,31 @@ The table is empty with no message, and the page count reads `1 of 0`.
 ### Impact
 
 - **Users:** an empty table may look like a loading problem.
+
+## Double Click Me and Right Click Me do not respond to Enter
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/buttons` |
+| **Test** | None, the intended behaviour is not documented |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/buttons`.
+2. Press Enter on `Double Click Me`, then on `Right Click Me`.
+
+### Expected
+
+Keyboard users have some way to trigger each button.
+
+### Actual
+
+Neither shows a message, while `Click Me` responds to Enter and Space. Space and
+the keyboard's menu key were not tried on these two buttons.
+
+### Impact
+
+- **Users:** someone using only a keyboard may be unable to get these messages.

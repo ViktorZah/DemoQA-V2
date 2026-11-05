@@ -14,6 +14,7 @@ class ElementsPage(BasePage):
         ".menu-list a[href='/radio-button']",
     )
     WEB_TABLES_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/webtables']")
+    BUTTONS_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/buttons']")
 
     @property
     def heading(self) -> str:
@@ -30,3 +31,6 @@ class ElementsPage(BasePage):
 
     def go_to_web_tables(self) -> None:
         self.click(self.WEB_TABLES_MENU_ITEM)
+
+    def go_to_buttons(self) -> None:
+        self.click(self.BUTTONS_MENU_ITEM)
