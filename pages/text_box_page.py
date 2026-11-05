@@ -8,7 +8,6 @@ from pages.elements_page import ElementsPage
 class TextBoxPage(ElementsPage):
     PATH = "/text-box"
 
-    HEADING = (By.TAG_NAME, "h1")
     FULL_NAME_INPUT = (By.ID, "userName")
     EMAIL_INPUT = (By.ID, "userEmail")
     SUBMIT_BUTTON = (By.ID, "submit")
@@ -28,10 +27,6 @@ class TextBoxPage(ElementsPage):
     FORM_ELEMENTS_WITH_ID = (By.CSS_SELECTOR, "#userForm [id]")
 
     FIELD_ERROR_CLASS = "field-error"
-
-    @property
-    def heading(self) -> str:
-        return self.find_visible(self.HEADING).text
 
     def fill_form(
         self,

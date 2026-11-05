@@ -39,3 +39,60 @@ Each ID appears once on the page.
 
 Do not locate sidebar items by ID. Use the link's destination instead, for
 example `.menu-list a[href='/text-box']`.
+
+## Clicking a Check Box label does not check its box
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-04, Chrome 156 |
+| **Pages checked** | `/checkbox` |
+| **Test** | None, the intended behaviour is not documented |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/checkbox`.
+2. Expand Home.
+3. Click the word `Desktop`, not its checkbox.
+
+### Expected
+
+Clicking a checkbox's label usually toggles the checkbox.
+
+### Actual
+
+The row is highlighted, but its box stays unchecked and no result appears.
+
+### Impact
+
+- **Users:** someone clicking the label may think they selected the item.
+- **Automated tests:** tests must click the checkbox itself.
+
+## Check Box files are announced as collapsible
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Technical (accessibility markup) |
+| **Found on** | 2026-11-04, Chrome 156 |
+| **Pages checked** | `/checkbox` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/checkbox` and expand down to `Notes`.
+2. Inspect the `Notes` row, which has `role="treeitem"`.
+
+### Expected
+
+A file has no children, so its row has no `aria-expanded` attribute.
+
+### Actual
+
+The row has `aria-expanded="false"`, which marks it as a collapsed folder.
+
+### Impact
+
+- **Users:** none seen in the browser.
+- **Accessibility tools:** not tested, but they may announce it as collapsed.
