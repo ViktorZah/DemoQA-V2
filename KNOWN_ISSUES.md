@@ -125,3 +125,144 @@ Both labels have the same text color, `rgb(33, 37, 41)`, even though `No` has a
 
 - **Users:** the label gives no sign that `No` cannot be selected.
 - **Automated tests:** none.
+
+## Web Tables age and salary inputs silently cut off typing
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/webtables` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/webtables` and click Add.
+2. Fill in the form, typing `150` as the age.
+3. Submit.
+
+### Expected
+
+The form says the value is too long, or allows ages of 100 and over.
+
+### Actual
+
+The field keeps only `15`, and the record is saved with age 15 and no warning.
+A salary of `12345678901` is saved as `1234567890`, and names and departments
+stop at 25 characters.
+
+### Impact
+
+- **Users:** a record can be saved with a different value from the one typed.
+
+## Web Tables accepts an age of 0
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Validation |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/webtables` |
+| **Test** | None, the allowed range is not documented |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/webtables` and click Add.
+2. Fill in the form with `0` as the age, and submit.
+
+### Expected
+
+An age of 0 is rejected.
+
+### Actual
+
+The record is saved with age 0.
+
+### Impact
+
+- **Users:** an unrealistic age can be saved.
+
+## Web Tables add form keeps text after being closed
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/webtables` |
+| **Test** | None, the intended behaviour is not documented |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/webtables` and click Add.
+2. Type `Jane` as the first name, then close the form with its X.
+3. Click Add again.
+
+### Expected
+
+Closing without saving discards what was typed.
+
+### Actual
+
+The first name still contains `Jane`.
+
+### Impact
+
+- **Users:** old text can end up in a new record.
+
+## Web Tables reuses a record ID after a delete
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Technical (invalid HTML) |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/webtables` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/webtables`.
+2. Delete Alden, the record with `delete-record-2`.
+3. Add a new record.
+
+### Expected
+
+The new record gets an unused ID.
+
+### Actual
+
+The new record and Kierra both use `delete-record-3`.
+
+### Impact
+
+- **Users:** none seen separately from the delete bug, which has `xfail` tests.
+- **Automated tests:** locating that delete button by ID may find the wrong row.
+
+## Web Tables search with no match gives no message
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/webtables` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/webtables`.
+2. Search for `zzz`.
+
+### Expected
+
+A message says no records were found, and the page count stays sensible.
+
+### Actual
+
+The table is empty with no message, and the page count reads `1 of 0`.
+
+### Impact
+
+- **Users:** an empty table may look like a loading problem.
