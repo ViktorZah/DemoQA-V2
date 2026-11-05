@@ -28,6 +28,7 @@ htmlcov/
 # Local Claude Code files
 .claude/settings.local.json
 .claude/skills/
+PROJECT_CONTEXT.md
 
 # Test reports, failure screenshots and debug output
 reports/
