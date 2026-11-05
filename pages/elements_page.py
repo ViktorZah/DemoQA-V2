@@ -9,6 +9,10 @@ class ElementsPage(BasePage):
     HEADING = (By.TAG_NAME, "h1")
     TEXT_BOX_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/text-box']")
     CHECK_BOX_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/checkbox']")
+    RADIO_BUTTON_MENU_ITEM = (
+        By.CSS_SELECTOR,
+        ".menu-list a[href='/radio-button']",
+    )
 
     @property
     def heading(self) -> str:
@@ -19,3 +23,6 @@ class ElementsPage(BasePage):
 
     def go_to_check_box(self) -> None:
         self.click(self.CHECK_BOX_MENU_ITEM)
+
+    def go_to_radio_button(self) -> None:
+        self.click(self.RADIO_BUTTON_MENU_ITEM)

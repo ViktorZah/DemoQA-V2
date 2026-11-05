@@ -96,3 +96,32 @@ The row has `aria-expanded="false"`, which marks it as a collapsed folder.
 
 - **Users:** none seen in the browser.
 - **Accessibility tools:** not tested, but they may announce it as collapsed.
+
+## Disabled Radio Button label looks the same as enabled ones
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-05, Chrome 156 |
+| **Pages checked** | `/radio-button` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/radio-button`.
+2. Compare the `No` label with the `Yes` label, in the browser's developer tools.
+
+### Expected
+
+A disabled option's label looks different, so users can tell it is unavailable.
+
+### Actual
+
+Both labels have the same text color, `rgb(33, 37, 41)`, even though `No` has a
+`disabled` class. The radio circle itself was not compared.
+
+### Impact
+
+- **Users:** the label gives no sign that `No` cannot be selected.
+- **Automated tests:** none.
