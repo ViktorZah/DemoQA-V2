@@ -16,3 +16,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_date_picker(self) -> None:
         self._menu_item("Date Picker").click()
+
+    def go_to_slider(self) -> None:
+        self._menu_item("Slider").click()

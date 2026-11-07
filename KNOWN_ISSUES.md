@@ -736,3 +736,34 @@ in a separate `div` that is not tied to the field.
 ### Workaround for tests
 
 Locate the fields by ID.
+
+## Slider and its value box have no names
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/slider` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/slider`.
+2. Inspect the slider `#slider` and the box beside it, `#sliderValue`.
+
+### Expected
+
+Both have an accessible name saying what the value is for.
+
+### Actual
+
+Neither has a label, `aria-label` or `aria-labelledby`. The page shows no text
+describing the slider at all. `aria-valuenow` does update correctly.
+
+### Impact
+
+- **Users:** screen readers announce "slider, 25" with no purpose. Not tested
+  with a screen reader.
+- **Automated tests:** the slider is found by its role alone, as it is the only
+  one, and the box by its ID.
