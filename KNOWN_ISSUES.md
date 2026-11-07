@@ -572,13 +572,15 @@ Find each button through its row's sentence, within
 | **Severity** | Low |
 | **Type** | Accessibility |
 | **Found on** | 2026-11-07, Chrome for Testing 156 |
-| **Pages checked** | `/frames` |
+| **Pages checked** | `/frames`, `/nestedframes` |
 | **Test** | None |
 
 ### Steps to reproduce
 
 1. Open `https://demoqa.com/frames`.
 2. Inspect the two `iframe` elements, `#frame1` and `#frame2`.
+3. Open `https://demoqa.com/nestedframes` and inspect `#frame1` and the
+   frame inside it.
 
 ### Expected
 
@@ -586,7 +588,8 @@ Each frame has a `title` attribute saying what it holds.
 
 ### Actual
 
-Neither frame has a `title`, so neither has an accessible name.
+None of the frames has a `title`, so none has an accessible name. The child
+frame on `/nestedframes` has no ID either.
 
 ### Impact
 
@@ -596,4 +599,5 @@ Neither frame has a `title`, so neither has an accessible name.
 
 ### Workaround for tests
 
-Locate the frames by ID, such as `page.frame_locator("#frame1")`.
+Locate the frames by ID, such as `page.frame_locator("#frame1")`. The
+nested child frame is the parent frame's only `iframe`.
