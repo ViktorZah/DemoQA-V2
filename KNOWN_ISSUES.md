@@ -633,3 +633,71 @@ The buttons have no `aria-controls`, and the sections have no IDs.
   link the button to its content. Not tested with a screen reader.
 - **Automated tests:** a section's text is found through the item that holds
   its button, not directly.
+
+## Auto Complete fields are not tied to their labels
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/auto-complete` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/auto-complete`.
+2. Inspect the two fields, `#autoCompleteMultipleInput` and
+   `#autoCompleteSingleInput`.
+
+### Expected
+
+Each field is named by its visible text, "Type multiple color names" or
+"Type single color name".
+
+### Actual
+
+Both fields are comboboxes with no accessible name. The visible text is in a
+separate `span` that is not tied to the field, and the placeholders are empty.
+
+### Impact
+
+- **Users:** screen readers announce each one only as "combo box". Not tested
+  with a screen reader.
+- **Automated tests:** `get_by_label` and `get_by_role("combobox", name=...)`
+  find neither field.
+
+### Workaround for tests
+
+Locate the fields by ID.
+
+## Auto Complete shows no message when nothing matches
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Usability |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/auto-complete` |
+| **Test** | None, nothing says a message is intended |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/auto-complete`.
+2. Type `xyz` into the multiple colour field.
+
+### Expected
+
+A short message such as "No options", so the user knows nothing matches.
+
+### Actual
+
+Nothing appears. The field reports its list as open (`aria-expanded="true"`),
+but no list or message is shown.
+
+### Impact
+
+- **Users:** cannot tell whether nothing matches or the field is still
+  loading.
+- **Screen readers:** announce an open list that has no content. Not tested
+  with a screen reader.
