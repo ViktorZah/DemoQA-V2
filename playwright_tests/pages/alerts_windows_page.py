@@ -11,3 +11,6 @@ class AlertsWindowsPage(SectionPage):
 
     def go_to_alerts(self) -> None:
         self._menu_item("Alerts").click()
+
+    def go_to_frames(self) -> None:
+        self._menu_item("Frames").click()

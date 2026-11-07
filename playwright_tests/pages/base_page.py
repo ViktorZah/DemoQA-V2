@@ -28,6 +28,12 @@ class BasePage:
         """Request a file from the site directly and return its status code."""
         return self.page.request.get(f"{self.BASE_URL}{path}").status
 
+    @staticmethod
+    def size_of(element: Locator) -> tuple[float, float]:
+        """Return an element's width and height on the page."""
+        box = element.bounding_box()
+        return box["width"], box["height"]
+
     @property
     def tab_count(self) -> int:
         return len(self.page.context.pages)

@@ -564,3 +564,36 @@ in a separate column and is not tied to its button.
 
 Find each button through its row's sentence, within
 `#javascriptAlertsWrapper .row`.
+
+## Frames have no title
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/frames` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/frames`.
+2. Inspect the two `iframe` elements, `#frame1` and `#frame2`.
+
+### Expected
+
+Each frame has a `title` attribute saying what it holds.
+
+### Actual
+
+Neither frame has a `title`, so neither has an accessible name.
+
+### Impact
+
+- **Users:** screen readers announce each one only as "frame". Not tested with
+  a screen reader.
+- **Automated tests:** the frames cannot be found by role and name.
+
+### Workaround for tests
+
+Locate the frames by ID, such as `page.frame_locator("#frame1")`.
