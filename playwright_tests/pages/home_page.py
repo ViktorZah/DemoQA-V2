@@ -10,5 +10,11 @@ class HomePage(BasePage):
     def section_titles(self) -> Locator:
         return self.page.locator(".category-cards").get_by_role("heading")
 
+    def _section_card(self, name: str) -> Locator:
+        return self.page.get_by_role("link", name=name, exact=True)
+
     def go_to_elements(self) -> None:
-        self.page.get_by_role("link", name="Elements", exact=True).click()
+        self._section_card("Elements").click()
+
+    def go_to_forms(self) -> None:
+        self._section_card("Forms").click()

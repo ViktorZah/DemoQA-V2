@@ -3,10 +3,14 @@ import pytest
 
 @pytest.fixture(scope="session")
 def browser_type_launch_args(browser_type_launch_args, pytestconfig):
-    """Use the installed Chrome, with a visible window unless --headless."""
+    """Show the browser window unless --headless is given.
+
+    The suite uses Playwright's own Chromium, not the installed Chrome. With
+    the installed Chrome, the browser twice quit cleanly in the middle of a
+    run for no known reason.
+    """
     return {
         **browser_type_launch_args,
-        "channel": "chrome",
         "headless": pytestconfig.getoption("--headless"),
     }
 

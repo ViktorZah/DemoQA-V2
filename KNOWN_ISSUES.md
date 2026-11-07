@@ -460,3 +460,70 @@ Locate the field by its ID, `#uploadFile`, which is unique on the page.
 - **Users:** the label reads oddly, but its meaning is clear.
 - **Automated tests:** role-based locators use the label as it is, so a fix
   would need the locator updated.
+
+## Practice Form fields are not tied to their labels
+
+| | |
+|---|---|
+| **Severity** | Medium |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome 156 |
+| **Pages checked** | `/automation-practice-form` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/automation-practice-form`.
+2. In the browser console, run
+   `document.querySelector('#firstName').labels.length`.
+
+### Expected
+
+Each field is tied to its visible label ("Name", "Email", "Mobile(10 Digits)"
+and so on), so the label names the field.
+
+### Actual
+
+`0`. The labels for Name, Email, Mobile, Date of Birth, Subjects, Picture,
+Current Address and State and City are not tied to any field. Only the gender
+radio buttons and hobby checkboxes have working labels.
+
+### Impact
+
+- **Users:** screen readers cannot say what most fields are for, and clicking a
+  label does not move to its field. Not tested with a screen reader.
+- **Automated tests:** `get_by_label` finds none of these fields.
+
+### Workaround for tests
+
+Locate text fields by placeholder, such as `get_by_placeholder("First Name")`,
+and the others by ID, such as `#dateOfBirthInput`.
+
+## Practice Form reuses the ID subjects-label
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Technical (invalid HTML), no effect on users seen |
+| **Found on** | 2026-11-07, Chrome 156 |
+| **Pages checked** | `/automation-practice-form` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/automation-practice-form`.
+2. In the browser console, run
+   `document.querySelectorAll('#subjects-label').length`.
+
+### Expected
+
+Each ID appears once on the page.
+
+### Actual
+
+`3`. Three labels in the form share the ID `subjects-label`.
+
+### Impact
+
+- **Users:** none seen.
+- **Automated tests:** `#subjects-label` finds only the first of the three.
