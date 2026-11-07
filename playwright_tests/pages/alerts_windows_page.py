@@ -17,3 +17,6 @@ class AlertsWindowsPage(SectionPage):
 
     def go_to_nested_frames(self) -> None:
         self._menu_item("Nested Frames").click()
+
+    def go_to_modal_dialogs(self) -> None:
+        self._menu_item("Modal Dialogs").click()
