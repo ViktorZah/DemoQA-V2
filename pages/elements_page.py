@@ -15,6 +15,7 @@ class ElementsPage(BasePage):
     )
     WEB_TABLES_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/webtables']")
     BUTTONS_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/buttons']")
+    LINKS_MENU_ITEM = (By.CSS_SELECTOR, ".menu-list a[href='/links']")
 
     @property
     def heading(self) -> str:
@@ -34,3 +35,6 @@ class ElementsPage(BasePage):
 
     def go_to_buttons(self) -> None:
         self.click(self.BUTTONS_MENU_ITEM)
+
+    def go_to_links(self) -> None:
+        self.click(self.LINKS_MENU_ITEM)

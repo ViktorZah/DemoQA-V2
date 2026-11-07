@@ -41,6 +41,9 @@ class BasePage:
     def open(self) -> None:
         self.driver.get(f"{self.BASE_URL}{self.PATH}")
 
+    def reload(self) -> None:
+        self.driver.refresh()
+
     @property
     def title(self) -> str:
         return self.driver.title
@@ -59,6 +62,16 @@ class BasePage:
 
     def wait_for_url(self, url: str) -> bool:
         return self.wait_until(EC.url_to_be(url))
+
+    @property
+    def tab_count(self) -> int:
+        return len(self.driver.window_handles)
+
+    def wait_for_tab_count(self, count: int) -> bool:
+        return self.wait_until(EC.number_of_windows_to_be(count))
+
+    def switch_to_newest_tab(self) -> None:
+        self.driver.switch_to.window(self.driver.window_handles[-1])
 
     def find_visible(self, locator: Locator) -> WebElement:
         return self.wait.until(EC.visibility_of_element_located(locator))

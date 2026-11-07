@@ -294,3 +294,40 @@ the keyboard's menu key were not tried on these two buttons.
 ### Impact
 
 - **Users:** someone using only a keyboard may be unable to get these messages.
+
+## Links API links throw an error in the console on every click
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Technical (JavaScript error), no effect on users seen |
+| **Found on** | 2026-11-07, Chrome 156 |
+| **Pages checked** | `/links` |
+| **Test** | None, console errors are not checked by the tests |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/links`.
+2. Open the browser console.
+3. Click any link under "Following links will send an api call", such as
+   `Created`.
+
+### Expected
+
+The click sends its request and shows the response, with no errors.
+
+### Actual
+
+The request is sent and the response message appears, but each click also logs
+`Uncaught Error: React has blocked a javascript: URL as a security
+precaution.` All seven links do this. Their `href` is
+`javascript:throw new Error(...)`: React replaced the original `javascript:`
+link, so the browser runs it and throws when the link is followed.
+
+### Impact
+
+- **Users:** none seen. The response message still appears.
+- **Developers:** the error hides real errors in the console.
+- **Not tested:** opening these links in a new tab (middle click or
+  Ctrl+click), or what screen readers announce for them.
+  They act as buttons but are links.
