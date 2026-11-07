@@ -18,3 +18,6 @@ class HomePage(BasePage):
 
     def go_to_forms(self) -> None:
         self._section_card("Forms").click()
+
+    def go_to_alerts_frame_and_windows(self) -> None:
+        self._section_card("Alerts, Frame & Windows").click()
