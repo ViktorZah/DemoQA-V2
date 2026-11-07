@@ -527,3 +527,40 @@ Each ID appears once on the page.
 
 - **Users:** none seen.
 - **Automated tests:** `#subjects-label` finds only the first of the three.
+
+## Alerts buttons all have the same name
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/alerts` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/alerts`.
+2. Look at the four buttons and their accessible names.
+
+### Expected
+
+Each button's name says what it does, such as "Show alert" or "Show confirm
+box", or the button is tied to the sentence beside it.
+
+### Actual
+
+All four buttons are named "Click me". The sentence explaining each one sits
+in a separate column and is not tied to its button.
+
+### Impact
+
+- **Users:** a screen reader listing the buttons reads "Click me" four times,
+  with no way to tell them apart. Not tested with a screen reader.
+- **Automated tests:** `get_by_role("button", name="Click me")` matches all
+  four.
+
+### Workaround for tests
+
+Find each button through its row's sentence, within
+`#javascriptAlertsWrapper .row`.

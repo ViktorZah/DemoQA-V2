@@ -8,3 +8,6 @@ class AlertsWindowsPage(SectionPage):
 
     def go_to_browser_windows(self) -> None:
         self._menu_item("Browser Windows").click()
+
+    def go_to_alerts(self) -> None:
+        self._menu_item("Alerts").click()
