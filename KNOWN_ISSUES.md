@@ -601,3 +601,35 @@ frame on `/nestedframes` has no ID either.
 
 Locate the frames by ID, such as `page.frame_locator("#frame1")`. The
 nested child frame is the parent frame's only `iframe`.
+
+## Accordion buttons do not point to their sections
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/accordian` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/accordian`.
+2. Inspect the three section buttons, such as "What is Lorem Ipsum?".
+
+### Expected
+
+Each button has `aria-controls` naming the section it opens, and each
+section has an ID for it to point to.
+
+### Actual
+
+The buttons have no `aria-controls`, and the sections have no IDs.
+`aria-expanded` does update correctly when a section opens or closes.
+
+### Impact
+
+- **Users:** screen readers announce whether a section is open, but cannot
+  link the button to its content. Not tested with a screen reader.
+- **Automated tests:** a section's text is found through the item that holds
+  its button, not directly.

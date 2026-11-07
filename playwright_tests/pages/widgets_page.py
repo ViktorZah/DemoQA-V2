@@ -1,0 +1,12 @@
+import re
+
+from playwright_tests.pages.section_page import SectionPage
+
+
+class WidgetsPage(SectionPage):
+    PATH = "/widgets"
+
+    def go_to_accordion(self) -> None:
+        # The item is misspelled "Accordian"; either spelling is accepted,
+        # so fixing it will not break navigation.
+        self._menu_item(re.compile(r"^Accordi[ao]n$")).click()

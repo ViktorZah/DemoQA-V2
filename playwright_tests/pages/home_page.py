@@ -21,3 +21,6 @@ class HomePage(BasePage):
 
     def go_to_alerts_frame_and_windows(self) -> None:
         self._section_card("Alerts, Frame & Windows").click()
+
+    def go_to_widgets(self) -> None:
+        self._section_card("Widgets").click()
