@@ -1,9 +1,9 @@
-import re
 from datetime import date
 from pathlib import Path
 
 from playwright.sync_api import Locator
 
+from playwright_tests.pages.calendar import choose_with_dropdowns
 from playwright_tests.pages.forms_page import FormsPage
 
 
@@ -74,17 +74,7 @@ class PracticeFormPage(FormsPage):
 
     def choose_date_of_birth(self, day: date) -> None:
         self.field("date_of_birth").click()
-        self.page.locator(".react-datepicker__month-select").select_option(
-            label=day.strftime("%B")
-        )
-        self.page.locator(".react-datepicker__year-select").select_option(
-            str(day.year)
-        )
-        # Each day is named like "Choose Tuesday, May 15th, 1990".
-        name = re.compile(
-            rf", {day:%B} {day.day}(st|nd|rd|th), {day.year}$"
-        )
-        self.page.get_by_role("gridcell", name=name).click()
+        choose_with_dropdowns(self.page, day)
 
     def type_subject(self, text: str) -> None:
         # Click first: after a date is chosen, the date picker keeps the

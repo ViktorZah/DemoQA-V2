@@ -13,3 +13,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_auto_complete(self) -> None:
         self._menu_item("Auto Complete").click()
+
+    def go_to_date_picker(self) -> None:
+        self._menu_item("Date Picker").click()

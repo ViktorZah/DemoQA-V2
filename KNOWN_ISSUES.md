@@ -701,3 +701,38 @@ but no list or message is shown.
   loading.
 - **Screen readers:** announce an open list that has no content. Not tested
   with a screen reader.
+
+## Date Picker fields are not tied to their labels
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome for Testing 156 |
+| **Pages checked** | `/date-picker` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/date-picker`.
+2. Inspect the fields `#datePickerMonthYearInput` and
+   `#dateAndTimePickerInput`.
+
+### Expected
+
+Each field is named by its visible text, "Select Date" or "Date And Time".
+
+### Actual
+
+Neither field has a label, `aria-label` or placeholder. The visible text sits
+in a separate `div` that is not tied to the field.
+
+### Impact
+
+- **Users:** screen readers announce each one only as an edit field. Not
+  tested with a screen reader.
+- **Automated tests:** `get_by_label` finds neither field.
+
+### Workaround for tests
+
+Locate the fields by ID.
