@@ -21,6 +21,9 @@ class BasePage:
     def open(self) -> None:
         self.page.goto(self.url)
 
+    def reload(self) -> None:
+        self.page.reload()
+
     def file_status(self, path: str) -> int:
         """Request a file from the site directly and return its status code."""
         return self.page.request.get(f"{self.BASE_URL}{path}").status

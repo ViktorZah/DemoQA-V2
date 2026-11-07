@@ -18,3 +18,6 @@ class ElementsPage(BasePage):
 
     def go_to_upload_and_download(self) -> None:
         self._menu_item("Upload and Download").click()
+
+    def go_to_dynamic_properties(self) -> None:
+        self._menu_item("Dynamic Properties").click()

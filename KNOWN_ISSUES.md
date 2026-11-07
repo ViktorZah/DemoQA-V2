@@ -431,3 +431,32 @@ it. The field has no accessible name.
 ### Workaround for tests
 
 Locate the field by its ID, `#uploadFile`, which is unique on the page.
+
+## Dynamic Properties button label is missing a word
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Content (wording) |
+| **Found on** | 2026-11-07, Chrome 156 |
+| **Pages checked** | `/dynamic-properties` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/dynamic-properties`.
+2. Read the first button's label.
+
+### Expected
+
+"Will enable in 5 seconds".
+
+### Actual
+
+"Will enable 5 seconds".
+
+### Impact
+
+- **Users:** the label reads oddly, but its meaning is clear.
+- **Automated tests:** role-based locators use the label as it is, so a fix
+  would need the locator updated.
