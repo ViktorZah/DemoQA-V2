@@ -394,3 +394,40 @@ redirects to `https://demoqa.com/`, adding an extra request.
 ### Impact
 
 - **Users:** none seen. The home page opens normally.
+
+## Upload field has no label
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-07, Chrome 156 |
+| **Pages checked** | `/upload-download` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/upload-download`.
+2. Inspect the file field `#uploadFile`.
+
+### Expected
+
+The field has a visible label, such as "Select a file", tied to it with a
+`label` element or `aria-label`.
+
+### Actual
+
+There is no label text on the page. The field has a `label="Select a File"`
+attribute, but `label` is not a valid attribute on `input`, so browsers ignore
+it. The field has no accessible name.
+
+### Impact
+
+- **Users:** sighted users see only the browser's own "Choose File" button.
+  Screen readers cannot say what the field is for. Not tested with a screen
+  reader.
+- **Automated tests:** `get_by_label("Select a File")` finds nothing.
+
+### Workaround for tests
+
+Locate the field by its ID, `#uploadFile`, which is unique on the page.
