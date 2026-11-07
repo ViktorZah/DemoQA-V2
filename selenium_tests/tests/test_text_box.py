@@ -1,8 +1,8 @@
 import pytest
 
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
-from pages.text_box_page import TextBoxPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
+from selenium_tests.pages.text_box_page import TextBoxPage
 
 pytestmark = pytest.mark.regression
 

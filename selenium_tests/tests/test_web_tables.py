@@ -1,8 +1,8 @@
 import pytest
 
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
-from pages.web_tables_page import WebTablesPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
+from selenium_tests.pages.web_tables_page import WebTablesPage
 
 pytestmark = pytest.mark.regression
 

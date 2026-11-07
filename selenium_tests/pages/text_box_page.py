@@ -2,7 +2,7 @@ from collections import Counter
 
 from selenium.webdriver.common.by import By
 
-from pages.elements_page import ElementsPage
+from selenium_tests.pages.elements_page import ElementsPage
 
 
 class TextBoxPage(ElementsPage):

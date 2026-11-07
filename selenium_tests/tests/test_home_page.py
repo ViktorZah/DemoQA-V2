@@ -1,6 +1,6 @@
 import pytest
 
-from pages.home_page import HomePage
+from selenium_tests.pages.home_page import HomePage
 
 pytestmark = pytest.mark.regression
 

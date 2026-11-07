@@ -1,9 +1,9 @@
 import pytest
 from selenium.webdriver.common.keys import Keys
 
-from pages.buttons_page import ButtonsPage
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
+from selenium_tests.pages.buttons_page import ButtonsPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
 
 pytestmark = pytest.mark.regression
 

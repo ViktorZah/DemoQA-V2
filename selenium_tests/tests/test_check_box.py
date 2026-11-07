@@ -1,8 +1,8 @@
 import pytest
 
-from pages.check_box_page import CheckBoxPage
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
+from selenium_tests.pages.check_box_page import CheckBoxPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
 
 pytestmark = pytest.mark.regression
 

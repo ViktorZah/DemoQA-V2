@@ -3,8 +3,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 
-from pages.base_page import Locator
-from pages.elements_page import ElementsPage
+from selenium_tests.pages.base_page import Locator
+from selenium_tests.pages.elements_page import ElementsPage
 
 
 class WebTablesPage(ElementsPage):

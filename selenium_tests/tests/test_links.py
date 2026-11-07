@@ -2,9 +2,9 @@ import re
 
 import pytest
 
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
-from pages.links_page import LinksPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
+from selenium_tests.pages.links_page import LinksPage
 
 pytestmark = pytest.mark.regression
 

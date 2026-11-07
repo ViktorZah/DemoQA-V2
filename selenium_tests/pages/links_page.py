@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-from pages.elements_page import ElementsPage
+from selenium_tests.pages.elements_page import ElementsPage
 
 
 class LinksPage(ElementsPage):

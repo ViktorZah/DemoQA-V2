@@ -1,8 +1,8 @@
 import pytest
 
-from pages.elements_page import ElementsPage
-from pages.home_page import HomePage
-from pages.radio_button_page import RadioButtonPage
+from selenium_tests.pages.elements_page import ElementsPage
+from selenium_tests.pages.home_page import HomePage
+from selenium_tests.pages.radio_button_page import RadioButtonPage
 
 pytestmark = pytest.mark.regression
 

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 
-from pages.base_page import Locator
-from pages.elements_page import ElementsPage
+from selenium_tests.pages.base_page import Locator
+from selenium_tests.pages.elements_page import ElementsPage
 
 
 class RadioButtonPage(ElementsPage):
