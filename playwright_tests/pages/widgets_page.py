@@ -28,3 +28,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_tool_tips(self) -> None:
         self._menu_item("Tool Tips").click()
+
+    def go_to_menu(self) -> None:
+        self._menu_item("Menu").click()

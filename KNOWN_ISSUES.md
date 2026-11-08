@@ -899,3 +899,38 @@ It has none of these, and no `title`. Its only text is the placeholder
 - **Users:** screen readers may fall back to the placeholder, which says
   nothing about what to type. Not tested with a screen reader.
 - **Automated tests:** the field is found by its placeholder.
+
+## Menu submenus cannot be opened with the keyboard
+
+| | |
+|---|---|
+| **Severity** | Medium |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/menu` |
+| **Test** | None, logged as an accessibility gap (could become an `xfail`) |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/menu`.
+2. Click "Main Item 1", then press Tab repeatedly.
+
+### Expected
+
+Keyboard users can open the submenu of "Main Item 2" and its "SUB SUB LIST »",
+for example with Enter or the arrow keys, as with hover. The links that open
+submenus say so with `aria-haspopup` and `aria-expanded`.
+
+### Actual
+
+Tab moves Main Item 1, Main Item 2, Main Item 3, then out of the menu. The
+submenus stay hidden (`display: none` until hover), so their 4 items cannot
+be reached without a mouse. No link has `aria-haspopup` or `aria-expanded`,
+and the menu has no menu roles.
+
+### Impact
+
+- **Users:** keyboard-only users cannot reach "Sub Item", "SUB SUB LIST »",
+  "Sub Sub Item 1" and "Sub Sub Item 2". Not tested with a screen reader.
+- **Automated tests:** the menu levels are found by CSS, as there are no
+  roles to find them by.
