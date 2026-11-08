@@ -19,3 +19,6 @@ class InteractionsPage(SectionPage):
 
     def go_to_selectable(self) -> None:
         self._menu_item("Selectable").click()
+
+    def go_to_resizable(self) -> None:
+        self._menu_item("Resizable").click()

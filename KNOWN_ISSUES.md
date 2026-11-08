@@ -1039,3 +1039,34 @@ the `<li>` items sit directly inside `<div>` rows, not a `<ul>` or `<ol>`.
   visible effect.
 - **Automated tests:** selection is checked through the `active` class and
   the colour.
+
+## Resizable boxes can only be resized with a mouse
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/resizable` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/resizable`.
+2. Try to reach a box's resize handle (bottom-right corner) with Tab.
+
+### Expected
+
+The handle can be focused and moved with the arrow keys, and has a name
+such as "Resize".
+
+### Actual
+
+Each handle is an empty `span` (`.react-resizable-handle`) with no
+`tabindex`, role or name, so it cannot be reached or used without a mouse.
+
+### Impact
+
+- **Users:** keyboard-only users cannot resize the boxes. Not tested with a
+  screen reader.
+- **Automated tests:** the boxes are found by ID and the handles by class.
