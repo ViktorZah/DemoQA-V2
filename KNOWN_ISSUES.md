@@ -934,3 +934,38 @@ and the menu has no menu roles.
   "Sub Sub Item 1" and "Sub Sub Item 2". Not tested with a screen reader.
 - **Automated tests:** the menu levels are found by CSS, as there are no
   roles to find them by.
+
+## Select Menu fields are not tied to their labels
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/select-menu` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/select-menu`.
+2. Inspect the five fields: the inputs `#react-select-2-input`,
+   `#react-select-3-input` and `#react-select-4-input`, and the selects
+   `#oldSelectMenu` and `#cars`.
+
+### Expected
+
+Each field is named by the text shown above it ("Select Value", "Select One",
+"Old Style Select Menu", "Multiselect drop down", "Standard multi select"),
+through a `<label>` or `aria-labelledby`.
+
+### Actual
+
+The texts are plain `div` or `p` elements. No field has a label,
+`aria-label` or `aria-labelledby`, and both selects report no labels.
+
+### Impact
+
+- **Users:** screen readers announce five unnamed fields. Not tested with a
+  screen reader.
+- **Automated tests:** the fields are found by ID. The multiselect's box has
+  no ID, so it is found through its input's generated ID.

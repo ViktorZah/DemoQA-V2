@@ -31,3 +31,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_menu(self) -> None:
         self._menu_item("Menu").click()
+
+    def go_to_select_menu(self) -> None:
+        self._menu_item("Select Menu").click()
