@@ -25,8 +25,9 @@ class BasePage:
         the header grows from 24px to 100px and the content moves down
         76px. A hover sent before that lands where the element used to be.
         expect() cannot help, as it retries checks, not actions. So this is
-        the one wait in the Playwright suite, chosen by the user on
-        2026-11-08. Use it only for actions that need a still page, such as
+        one of the two waits in the Playwright suite, both chosen by the
+        user on 2026-11-08 (the other is in InteractionsPage, for the drag
+        library). Use it only for actions that need a still page, such as
         hovering.
         """
         self.page.wait_for_function(self.HEADER_IMAGES_DONE)

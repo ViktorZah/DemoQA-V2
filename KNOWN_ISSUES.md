@@ -1070,3 +1070,72 @@ Each handle is an empty `span` (`.react-resizable-handle`) with no
 - **Users:** keyboard-only users cannot resize the boxes. Not tested with a
   screen reader.
 - **Automated tests:** the boxes are found by ID and the handles by class.
+
+## Droppable reuses the ID droppable
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Technical (invalid HTML), no effect on users seen |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/droppable` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/droppable`.
+2. In the browser console, run `document.querySelectorAll('#droppable').length`.
+
+### Expected
+
+`1`. Each ID is unique on a page.
+
+### Actual
+
+`2`: the drop box of the "Simple" tab and the drop box of the "Revert
+Draggable" tab.
+
+### Impact
+
+- **Users:** none seen.
+- **Automated tests:** every part of the page is found inside its tab's
+  container.
+
+## Droppable ignores a drag begun too soon
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Functional, timing |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/droppable` |
+| **Test** | None; tests wait for it (see "Workaround for tests") |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/droppable`.
+2. Without moving the mouse over the page first, move it straight onto
+   "Drag Me" and press at once, then drag onto "Drop Here" and release.
+
+### Expected
+
+The box moves and the target says "Dropped!".
+
+### Actual
+
+Nothing moves, and the target still says "Drop Here". The drag library is
+set up only when the mouse first reaches a draggable box: about 0.22s later,
+all 6 draggable boxes get the class `ui-draggable`. A drag begun before that
+is ignored; the next one works. Seen in 3 fresh loads with automated mouse
+moves, both with Playwright's `drag_to` and with mouse steps.
+
+### Impact
+
+- **Users:** unlikely to be noticed, as a person usually rests on the box
+  before dragging. Not checked by hand.
+- **Automated tests:** a fast test drag fails.
+
+### Workaround for tests
+
+`InteractionsPage` glides the mouse onto the box and waits for its
+`ui-draggable` class before pressing.
