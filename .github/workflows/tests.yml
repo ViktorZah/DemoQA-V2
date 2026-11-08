@@ -1,0 +1,63 @@
+name: Tests
+
+on:
+  # The smoke tests on every push to main.
+  push:
+    branches: [main]
+  # The full suite every Sunday at 06:00 UTC, to notice site changes.
+  schedule:
+    - cron: "0 6 * * 0"
+  # By hand, from the Actions tab, choosing which tests to run.
+  workflow_dispatch:
+    inputs:
+      tests:
+        description: "Which tests to run"
+        type: choice
+        options: [smoke, full]
+        default: smoke
+
+# A newer push cancels a run still going for an older one.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      # The weekly run and a "full" choice run everything; the rest, smoke.
+      FULL: ${{ github.event_name == 'schedule' || inputs.tests == 'full' }}
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # The Selenium suite uses the Google Chrome already on the machine.
+      - name: Install Playwright's Chromium
+        run: playwright install --with-deps chromium
+
+      - name: Run the smoke tests
+        if: env.FULL != 'true'
+        run: pytest -m smoke --headless
+
+      - name: Run the full suite
+        if: env.FULL == 'true'
+        run: pytest --headless
+
+      # Kept even when tests fail, so a failure can be looked into.
+      - name: Keep the report, screenshots and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports-${{ github.run_number }}
+          path: reports/
+          retention-days: 14
