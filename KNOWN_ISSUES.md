@@ -969,3 +969,36 @@ The texts are plain `div` or `p` elements. No field has a label,
   screen reader.
 - **Automated tests:** the fields are found by ID. The multiselect's box has
   no ID, so it is found through its input's generated ID.
+
+## Sortable items cannot be moved with the keyboard
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/sortable` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/sortable`.
+2. Try to reach an item ("One" to "Six") with Tab, or to move one with the
+   keyboard.
+
+### Expected
+
+Keyboard users can pick up an item and move it, as with dragging, and the
+items say what they are (for example with a role and
+`aria-roledescription`).
+
+### Actual
+
+The items are plain `div` elements with `tabindex` -1, no role and no ARIA
+attributes. They cannot be focused or moved without a mouse.
+
+### Impact
+
+- **Users:** keyboard-only users cannot reorder the list or the grid. Not
+  tested with a screen reader.
+- **Automated tests:** the items are found by class inside each tab's panel.

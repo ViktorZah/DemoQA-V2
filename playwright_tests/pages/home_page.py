@@ -24,3 +24,6 @@ class HomePage(BasePage):
 
     def go_to_widgets(self) -> None:
         self._section_card("Widgets").click()
+
+    def go_to_interactions(self) -> None:
+        self._section_card("Interactions").click()
