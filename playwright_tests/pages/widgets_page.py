@@ -19,3 +19,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_slider(self) -> None:
         self._menu_item("Slider").click()
+
+    def go_to_progress_bar(self) -> None:
+        self._menu_item("Progress Bar").click()

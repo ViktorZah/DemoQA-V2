@@ -767,3 +767,36 @@ describing the slider at all. `aria-valuenow` does update correctly.
   with a screen reader.
 - **Automated tests:** the slider is found by its role alone, as it is the only
   one, and the box by its ID.
+
+## Progress Bar has no name
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/progress-bar` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/progress-bar`.
+2. Inspect the element with `role="progressbar"` inside `#progressBar`.
+
+### Expected
+
+The bar has an accessible name, for example by pointing `aria-labelledby` at
+the "Progress Bar" text shown above it.
+
+### Actual
+
+The bar has no `aria-label` or `aria-labelledby`, and the "Progress Bar" text
+above it is a plain `div` that is not tied to it. `aria-valuenow`,
+`aria-valuemin` and `aria-valuemax` are set and update correctly.
+
+### Impact
+
+- **Users:** screen readers announce the progress with no purpose. Not tested
+  with a screen reader.
+- **Automated tests:** the bar is found by its role alone, as it is the only
+  one.
