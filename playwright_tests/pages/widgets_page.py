@@ -22,3 +22,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_progress_bar(self) -> None:
         self._menu_item("Progress Bar").click()
+
+    def go_to_tabs(self) -> None:
+        self._menu_item("Tabs").click()

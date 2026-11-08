@@ -800,3 +800,38 @@ above it is a plain `div` that is not tied to it. `aria-valuenow`,
   with a screen reader.
 - **Automated tests:** the bar is found by its role alone, as it is the only
   one.
+
+## Tabs panels cannot be reached with the Tab key
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/tabs` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/tabs`.
+2. Click the "What" tab.
+3. Press Tab.
+
+### Expected
+
+Focus moves into the shown panel, so keyboard users can reach the text the
+tab controls. When a panel holds nothing focusable, the usual fix is
+`tabindex="0"` on the panel.
+
+### Actual
+
+Focus leaves the tabs entirely and goes to the page body, then to the start
+of the sidebar. The panels (`#demo-tabpane-what` and the others) have no
+`tabindex` and hold nothing focusable.
+
+### Impact
+
+- **Users:** keyboard and screen reader users get no clear path from a tab to
+  its text. Not tested with a screen reader, which may still read the text in
+  its own reading mode.
+- **Automated tests:** none; tests check the panel's text directly.
