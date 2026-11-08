@@ -1002,3 +1002,40 @@ attributes. They cannot be focused or moved without a mouse.
 - **Users:** keyboard-only users cannot reorder the list or the grid. Not
   tested with a screen reader.
 - **Automated tests:** the items are found by class inside each tab's panel.
+
+## Selectable items report their selection only by colour
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility, plus invalid HTML in the grid |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/selectable` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/selectable`.
+2. Click "Morbi leo risus", then inspect it, and try to reach the items with
+   Tab.
+3. Open the "Grid" tab and inspect `#gridContainer`.
+
+### Expected
+
+Selected items say so (for example `aria-selected="true"` in a listbox or
+grid), the items can be reached and toggled with the keyboard, and list
+items sit inside a list.
+
+### Actual
+
+A selected item only gains the class `active` and turns blue. No item has a
+role, `aria-selected` or a `tabindex` that lets it be focused. In the grid,
+the `<li>` items sit directly inside `<div>` rows, not a `<ul>` or `<ol>`.
+
+### Impact
+
+- **Users:** screen reader and keyboard users cannot tell or change what is
+  selected. Not tested with a screen reader. The invalid markup has no
+  visible effect.
+- **Automated tests:** selection is checked through the `active` class and
+  the colour.

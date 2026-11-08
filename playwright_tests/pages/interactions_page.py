@@ -16,3 +16,6 @@ class InteractionsPage(SectionPage):
 
     def go_to_sortable(self) -> None:
         self._menu_item("Sortable").click()
+
+    def go_to_selectable(self) -> None:
+        self._menu_item("Selectable").click()
