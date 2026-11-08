@@ -1,3 +1,5 @@
+import re
+
 from playwright.sync_api import Locator
 
 from playwright_tests.pages.section_page import SectionPage
@@ -30,6 +32,11 @@ class InteractionsPage(SectionPage):
 
     def go_to_droppable(self) -> None:
         self._menu_item("Droppable").click()
+
+    def go_to_draggable(self) -> None:
+        # The item is misspelled "Dragabble"; either spelling is accepted,
+        # so fixing it will not break navigation.
+        self._menu_item(re.compile(r"^(Dragabble|Draggable)$")).click()
 
     @staticmethod
     def _centre(element: Locator) -> tuple[float, float]:
@@ -78,6 +85,34 @@ class InteractionsPage(SectionPage):
             box = target.bounding_box()
             to_x, to_y = box["x"] + offset[0], box["y"] + offset[1]
         self.page.mouse.move(to_x, to_y, steps=15)
+
+    def hold_moved_by(
+        self, source: Locator, dx: float, dy: float
+    ) -> tuple[float, float]:
+        """Pick up source and move the mouse by dx, dy without dropping.
+
+        Returns where the mouse is now.
+        """
+        x, y = self._pick_up(source)
+        self.page.mouse.move(x + dx, y + dy, steps=15)
+        return x + dx, y + dy
+
+    def drag_by(self, source: Locator, dx: float, dy: float) -> None:
+        self.hold_moved_by(source, dx, dy)
+        self.release()
+
+    @staticmethod
+    def position_of(element: Locator) -> tuple[int, int]:
+        """The element's top-left corner on screen, in whole pixels."""
+        box = element.bounding_box()
+        return round(box["x"]), round(box["y"])
+
+    @staticmethod
+    def edges_of(element: Locator) -> tuple[float, float, float, float]:
+        """The element's left, top, right and bottom edges on screen."""
+        box = element.bounding_box()
+        return (box["x"], box["y"], box["x"] + box["width"],
+                box["y"] + box["height"])
 
     def release(self) -> None:
         self.page.mouse.up()

@@ -1139,3 +1139,33 @@ moves, both with Playwright's `drag_to` and with mouse steps.
 
 `InteractionsPage` glides the mouse onto the box and waits for its
 `ui-draggable` class before pressing.
+
+## Dragabble boxes can only be moved with a mouse
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/dragabble`, `/droppable` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/dragabble` (or `/droppable`).
+2. Try to reach "Drag me" with Tab, or to move it with the keyboard.
+
+### Expected
+
+Keyboard users can move the boxes, and each box says what it is.
+
+### Actual
+
+The boxes are plain `div` or `span` elements with no `tabindex`, role or
+name. They cannot be focused or moved without a mouse.
+
+### Impact
+
+- **Users:** keyboard-only users cannot try any of the drag examples. Not
+  tested with a screen reader.
+- **Automated tests:** the boxes are found by ID or class.
