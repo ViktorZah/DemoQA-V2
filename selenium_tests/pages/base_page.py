@@ -17,12 +17,10 @@ class BasePage:
     BASE_URL = "https://demoqa.com"
     PATH = "/"
     DEFAULT_TIMEOUT = 10
-    HEADER_IS_IN_PLACE = """
-        const header = document.querySelector('.header-wrapper');
-        const body = document.querySelector('.body-height');
-        if (!header || !body) return true;
-        return header.getBoundingClientRect().top
-            < body.getBoundingClientRect().top;
+    # True once every image in the header has finished, loaded or failed.
+    HEADER_IMAGES_DONE = """
+        return [...document.querySelectorAll('header img')]
+            .every(image => image.complete);
     """
     # Collects for half a second, as the browser reports shifts a moment later.
     LAYOUT_SHIFT_SCORE = """
@@ -91,14 +89,19 @@ class BasePage:
         self._find_clickable_in_view(locator).click()
 
     def _wait_for_header_to_settle(self) -> None:
-        """Wait for the header to move above the page content.
+        """Wait for the header's logo, which pushes the content down.
 
-        It first renders lower down, then moves up just after the page
-        loads and pushes the content down. ActionChains clicks a position
-        on screen, so a click sent before that move would miss its element.
+        The logo has no set size and arrives just after the page loads, so
+        the header grows from 24px to 100px and the content moves down
+        76px. ActionChains clicks a position on screen, so a click sent
+        before that would miss its element.
+
+        Raises TimeoutException if the logo never finishes. An earlier
+        check here could never come true after a site change, and because
+        its timeout was ignored, every call quietly waited 10 seconds.
         """
-        self.wait_until(
-            lambda driver: driver.execute_script(self.HEADER_IS_IN_PLACE)
+        self.wait.until(
+            lambda driver: driver.execute_script(self.HEADER_IMAGES_DONE)
         )
 
     def layout_shift_score(self) -> float:
