@@ -1,6 +1,10 @@
 from playwright.sync_api import Locator, Page, Response
 
 
+class PageLoadError(Exception):
+    """The site answered a page request with an error, such as 502."""
+
+
 class BasePage:
     """Actions shared by every page.
 
@@ -37,7 +41,18 @@ class BasePage:
         return f"{self.BASE_URL}{self.PATH}"
 
     def open(self) -> None:
-        self.page.goto(self.url)
+        """Open the page, and stop at once if the site answers with an error.
+
+        goto() accepts an error page as a normal answer, so without this a
+        site outage (502 from DemoQA was seen in CI) only shows up later as a
+        30-second wait for an element that cannot be there.
+        """
+        response = self.page.goto(self.url)
+        if response is not None and not response.ok:
+            raise PageLoadError(
+                f"{self.url} returned {response.status} "
+                f"{response.status_text}".rstrip()
+            )
 
     def reload(self) -> None:
         self.page.reload()

@@ -124,4 +124,6 @@ import them instead of the real packages.
 The tests run against the live public site, which shows ads and changes from
 time to time. A run can fail for reasons outside the tests, such as a slow
 load, an ad covering an element or a network change; check the report or
-trace before assuming a test is broken.
+trace before assuming a test is broken. If the site answers a Playwright
+test's page request with an error, such as a 502 during an outage, the
+test stops at once with a `PageLoadError` naming the status.
