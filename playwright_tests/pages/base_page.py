@@ -11,8 +11,25 @@ class BasePage:
     BASE_URL = "https://demoqa.com"
     PATH = "/"
 
+    # True once every image in the header has finished, loaded or failed.
+    HEADER_IMAGES_DONE = """() => [...document.querySelectorAll('header img')]
+        .every(image => image.complete)"""
+
     def __init__(self, page: Page) -> None:
         self.page = page
+
+    def wait_for_header_to_settle(self) -> None:
+        """Wait for the header's logo, which pushes the content down.
+
+        The logo has no set size and arrives just after the page loads, so
+        the header grows from 24px to 100px and the content moves down
+        76px. A hover sent before that lands where the element used to be.
+        expect() cannot help, as it retries checks, not actions. So this is
+        the one wait in the Playwright suite, chosen by the user on
+        2026-11-08. Use it only for actions that need a still page, such as
+        hovering.
+        """
+        self.page.wait_for_function(self.HEADER_IMAGES_DONE)
 
     @property
     def url(self) -> str:

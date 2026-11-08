@@ -25,3 +25,6 @@ class WidgetsPage(SectionPage):
 
     def go_to_tabs(self) -> None:
         self._menu_item("Tabs").click()
+
+    def go_to_tool_tips(self) -> None:
+        self._menu_item("Tool Tips").click()

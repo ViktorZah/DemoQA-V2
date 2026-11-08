@@ -835,3 +835,67 @@ of the sidebar. The panels (`#demo-tabpane-what` and the others) have no
   its text. Not tested with a screen reader, which may still read the text in
   its own reading mode.
 - **Automated tests:** none; tests check the panel's text directly.
+
+## Tool Tips links lead nowhere
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Functional |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/tool-tips` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/tool-tips`.
+2. Click the link "Contrary" (or "1.10.32") in the paragraph.
+
+### Expected
+
+Either the link opens something, or the words are not shown as a link.
+
+### Actual
+
+Nothing happens: the address stays `/tool-tips` and no error is shown in the
+console. Both links have the address
+`javascript:throw new Error('React has blocked a javascript: URL as a security precaution.')`,
+which is React replacing a `javascript:` address it refuses to run. Their
+tooltips work.
+
+### Impact
+
+- **Users:** the words are links, but clicking them does nothing. How they
+  look was not checked.
+- **Automated tests:** no test clicks them, so no passing test depends on
+  this.
+
+## Tool Tips text field has no label
+
+| | |
+|---|---|
+| **Severity** | Low |
+| **Type** | Accessibility |
+| **Found on** | 2026-11-08, Chrome for Testing 156 |
+| **Pages checked** | `/tool-tips` |
+| **Test** | None |
+
+### Steps to reproduce
+
+1. Open `https://demoqa.com/tool-tips`.
+2. Inspect the field `#toolTipTextField`.
+
+### Expected
+
+The field has a label, `aria-label` or `aria-labelledby`.
+
+### Actual
+
+It has none of these, and no `title`. Its only text is the placeholder
+"Hover me to see", which disappears once something is typed.
+
+### Impact
+
+- **Users:** screen readers may fall back to the placeholder, which says
+  nothing about what to type. Not tested with a screen reader.
+- **Automated tests:** the field is found by its placeholder.
