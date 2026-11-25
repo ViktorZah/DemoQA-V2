@@ -49,8 +49,8 @@ class InteractionsPage(SectionPage):
         The library is set up lazily: about 0.2s after the mouse first
         reaches a draggable element, every draggable gets the class
         "ui-draggable". A drag begun before then does nothing. This is the
-        second wait in the Playwright suite, chosen by the user on
-        2026-11-08; it waits for that class, never for a fixed time.
+        second wait in the Playwright suite, it waits for that class,
+        never for a fixed time.
         """
         element.and_(self.page.locator(".ui-draggable")).wait_for()
 
